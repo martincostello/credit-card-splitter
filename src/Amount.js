@@ -5,7 +5,8 @@ class Amount extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.value || ""
+      value: this.props.value || "",
+      canEdit: this.props.canEditAmount === undefined || this.props.canEditAmount === true
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -34,6 +35,7 @@ class Amount extends Component {
                max={this.props.max || ""}
                step="0.01"
                type="number"
+               disabled={!this.state.canEdit}
                value={this.state.value || ""}
                onChange={this.handleChange}
                aria-label={this.props.label || ""}

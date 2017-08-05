@@ -73,7 +73,13 @@ class Person extends Component {
             </div>
           </div>
           <div className="form-group">
-            <Amount name="total-person-1" min={0.01} max={this.props.max} label={this.props.amountLabel} onValueChanged={this.onAmountChanged} value={this.props.amount || ""} />
+            <Amount name="total-person-1"
+                    min={0.01}
+                    max={this.props.max}
+                    label={this.props.amountLabel}
+                    onValueChanged={this.onAmountChanged}
+                    value={this.props.amount || ""}
+                    canEditAmount={this.props.canEditAmount} />
           </div>
           <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>{this.props.buttonText}</button>
         </form>
