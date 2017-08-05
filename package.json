@@ -1,0 +1,29 @@
+{
+  "name": "credit-card-splitter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An application to split parts of a credit card bill between two people",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "1.0.10"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martincostello/credit-card-splitter.git"
+  },
+  "author": {
+    "name": "Martin Costello",
+    "url": "https://martincostello.com/"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/martincostello/credit-card-splitter/issues"
+  },
+  "homepage": "https://github.com/martincostello/credit-card-splitter#readme"
+}
