@@ -2,9 +2,48 @@ import React, { Component } from "react";
 import Amount from "./Amount";
 
 class Person extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      amount: this.props.amount || 0,
+      canContinue: false
+    };
+
+    this.onNext = this.onNext.bind(this);
+    this.onAmountChanged = this.onAmountChanged.bind(this);
+    this.onNameChanged = this.onNameChanged.bind(this);
+  }
+
+  onNext() {
+    if (this.props.onValues) {
+      this.props.onValues(this.state.name, this.state.amount);
+    }
+  }
+
+  onAmountChanged(amount) {
+    this.setState({
+      amount: amount,
+      name: this.state.name,
+      canContinue: this.state.name && amount > 0
+    });
+  }
+
+  onNameChanged(event) {
+    var name = event.target.value;
+    if (name) {
+      this.setState({
+        amount: this.state.amount,
+        name: event.target.value,
+        canContinue: this.state.amount > 0
+      });
+    }
+  }
+
   render() {
     return (
-      <div className={this.props.hide === true ? "hide" : ""} id={this.props.id}>
+      <div>
         <p className="app-intro app-instruction lead">
           {this.props.title || "?"}
         </p>
@@ -14,13 +53,20 @@ class Person extends Component {
               <span className="input-group-addon" aria-hidden="true">
                 <span className="glyphicon glyphicon-user"></span>
               </span>
-              <input name={this.props.name} className="form-control" placeholder={this.props.person} type="text" aria-label={this.personLabel} label={this.personLabel} />
+              <input name={this.props.name}
+                     className="form-control"
+                     onChange={this.onNameChanged}
+                     placeholder={this.props.person || "Name"}
+                     type="text"
+                     aria-label={this.personLabel}
+                     autofocus
+                     label={this.personLabel} />
             </div>
           </div>
           <div className="form-group">
-            <Amount name="total-person-1" label={this.props.amountLabel} />
+            <Amount name="total-person-1" min={0.01} label={this.props.amountLabel} onValueChanged={this.onAmountChanged} value={this.props.amount || ""} />
           </div>
-          <button type="button" className="btn btn-primary">{this.props.buttonText}</button>
+          <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>{this.props.buttonText}</button>
         </form>
       </div>
     );
