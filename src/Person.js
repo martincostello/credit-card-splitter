@@ -75,7 +75,7 @@ class Person extends Component {
                      onChange={this.onNameChanged}
                      onKeyPress={this.onKeyPress}
                      placeholder={this.props.person || "Name"}
-                     value={this.props.person || ""}
+                     defaultValue={this.props.person || ""}
                      type="text"
                      aria-label={this.personLabel}
                      autoFocus
