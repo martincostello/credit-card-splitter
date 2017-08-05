@@ -1,0 +1,30 @@
+/*
+.app {
+}
+*/
+
+.app-header {
+  background-color: #222;
+  color: white;
+  height: 20%;
+  padding: 20px;
+  text-align: center;
+}
+
+.app-instruction {
+  text-align: center;
+}
+
+.app-intro {
+  padding-top: 1%;
+}
+
+.app-logo {
+  animation: app-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+@keyframes app-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
