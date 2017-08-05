@@ -5,10 +5,16 @@ class Person extends Component {
 
   constructor(props) {
     super(props);
+
+    var name = this.props.person || "";
+    var amount = this.props.amount || 0;
+    var max = this.props.max || null;
+
     this.state = {
-      name: "",
-      amount: this.props.amount || 0,
-      canContinue: false
+      name: name,
+      amount: amount,
+      max: max,
+      canContinue: name && amount > 0 && (!amount || amount <= max)
     };
 
     this.onNext = this.onNext.bind(this);
@@ -26,7 +32,8 @@ class Person extends Component {
     this.setState({
       amount: amount,
       name: this.state.name,
-      canContinue: this.state.name && amount > 0
+      canContinue: this.state.name && amount > 0 && amount <= this.state.max,
+      max: this.state.max
     });
   }
 
@@ -36,7 +43,8 @@ class Person extends Component {
       this.setState({
         amount: this.state.amount,
         name: event.target.value,
-        canContinue: this.state.amount > 0
+        canContinue: name && this.state.amount > 0 && this.state.amount <= this.state.max,
+        max: this.state.max
       });
     }
   }
@@ -57,14 +65,15 @@ class Person extends Component {
                      className="form-control"
                      onChange={this.onNameChanged}
                      placeholder={this.props.person || "Name"}
+                     value={this.props.person || ""}
                      type="text"
                      aria-label={this.personLabel}
-                     autofocus
+                     autoFocus
                      label={this.personLabel} />
             </div>
           </div>
           <div className="form-group">
-            <Amount name="total-person-1" min={0.01} label={this.props.amountLabel} onValueChanged={this.onAmountChanged} value={this.props.amount || ""} />
+            <Amount name="total-person-1" min={0.01} max={this.props.max} label={this.props.amountLabel} onValueChanged={this.onAmountChanged} value={this.props.amount || ""} />
           </div>
           <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>{this.props.buttonText}</button>
         </form>

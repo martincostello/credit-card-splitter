@@ -31,6 +31,7 @@ class Amount extends Component {
                className="form-control"
                placeholder={this.props.placeholder || "0.00"}
                min={this.props.min || "0.00"}
+               max={this.props.max || ""}
                step="0.01"
                type="number"
                value={this.state.value || ""}

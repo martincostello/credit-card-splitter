@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { Component } from "react";
 
 import Person from "./Person";
@@ -12,11 +13,11 @@ class Calculator extends Component {
     this.state = {
       total: 0.00,
       person1: {
-        name: "",
+        name: Cookies.get("cc-splitter-person-1") || "",
         amount: 0
       },
       person2: {
-        name: "",
+        name: Cookies.get("cc-splitter-person-2") || "",
         amount: 0
       },
       step: 0
@@ -28,7 +29,6 @@ class Calculator extends Component {
   }
 
   onTotal(total) {
-    console.log("Total from user:", total);
     this.setState({
       total: total,
       person1: this.state.person1,
@@ -38,20 +38,21 @@ class Calculator extends Component {
   }
 
   onFirstPerson(name, amount) {
-    console.log("Amount from person one:", name, amount);
-    this.setState({
-      total: this.state.total,
-      person1: {
-        name: name,
-        amount: amount
-      },
-      person2: this.state.person2,
-      step: ++this.state.step
-    });
+    if (this.state.total - amount > 0) {
+      this.setState({
+        total: this.state.total,
+        person1: {
+          name: name,
+          amount: amount
+        },
+        person2: this.state.person2,
+        step: ++this.state.step
+      });
+      Cookies.set("cc-splitter-person-1", name);
+    }
   }
 
   onSecondPerson(name, amount) {
-    console.log("Amount from person two:", name, amount);
     this.setState({
       total: this.state.total,
       person2: {
@@ -61,6 +62,7 @@ class Calculator extends Component {
       person1: this.state.person1,
       step: ++this.state.step
     });
+    Cookies.set("cc-splitter-person-2", name);
   }
 
   render() {
@@ -71,6 +73,7 @@ class Calculator extends Component {
             title="Next, set the apparent total for the first person:"
             name="person-1"
             person={this.state.person1.name || ""}
+            max={this.state.total - 0.01}
             onValues={this.onFirstPerson}
             personLabel="The name of the first person."
             amountLabel="Enter the statement amount from the credit card bill for the first person."
@@ -81,6 +84,7 @@ class Calculator extends Component {
             person={this.state.person2.name || ""}
             onValues={this.onSecondPerson}
             amount={this.state.total - this.state.person1.amount}
+            max={this.state.total - this.state.person1.amount}
             personLabel="The name of the second person."
             amountLabel="Enter the statement amount from the credit card bill for the second person."
             buttonText="Set amount" /> : "" }

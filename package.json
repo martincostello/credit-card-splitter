@@ -4,6 +4,7 @@
   "private": true,
   "description": "An application to split parts of a credit card bill between two people",
   "dependencies": {
+    "js-cookie": "2.1.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.10"
