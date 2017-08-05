@@ -8,6 +8,7 @@ class Person extends Component {
 
     var name = this.props.person || "";
     var amount = this.props.amount || 0;
+    amount = parseFloat(amount);
     var max = this.props.max || null;
 
     this.state = {
@@ -20,11 +21,12 @@ class Person extends Component {
     this.onNext = this.onNext.bind(this);
     this.onAmountChanged = this.onAmountChanged.bind(this);
     this.onNameChanged = this.onNameChanged.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
   }
 
   onNext() {
-    if (this.props.onValues) {
-      this.props.onValues(this.state.name, this.state.amount);
+    if (this.state.canContinue && this.props.onValues) {
+      this.props.onValues(this.state.name, parseFloat(this.state.amount));
     }
   }
 
@@ -49,6 +51,13 @@ class Person extends Component {
     }
   }
 
+  onKeyPress(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      this.onNext();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -64,6 +73,7 @@ class Person extends Component {
               <input name={this.props.name}
                      className="form-control"
                      onChange={this.onNameChanged}
+                     onKeyPress={this.onKeyPress}
                      placeholder={this.props.person || "Name"}
                      value={this.props.person || ""}
                      type="text"
@@ -77,6 +87,7 @@ class Person extends Component {
                     min={0.01}
                     max={this.props.max}
                     label={this.props.amountLabel}
+                    onEnterKey={this.onNext}
                     onValueChanged={this.onAmountChanged}
                     value={this.props.amount || ""}
                     canEditAmount={this.props.canEditAmount} />

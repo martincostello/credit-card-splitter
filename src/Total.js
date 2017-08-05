@@ -35,7 +35,11 @@ class Total extends Component {
         </p>
         <form className="form-inline">
           <div className="form-group">
-            <Amount name="total" min={0.01} label="Enter the total amount for the credit card bill in pounds and pence." onValueChanged={this.onValueChanged} />
+            <Amount name="total"
+                    min={0.01}
+                    label="Enter the total amount for the credit card bill in pounds and pence."
+                    onEnterKey={this.onNext}
+                    onValueChanged={this.onValueChanged} />
           </div>
           <div className="form-group">
             <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>Set total</button>

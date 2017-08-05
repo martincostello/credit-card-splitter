@@ -9,6 +9,7 @@ class Amount extends Component {
       canEdit: this.props.canEditAmount === undefined || this.props.canEditAmount === true
     };
     this.handleChange = this.handleChange.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
   }
 
   handleChange(event) {
@@ -20,6 +21,15 @@ class Amount extends Component {
         if (this.props.onValueChanged) {
           this.props.onValueChanged(parsed);
         }
+      }
+    }
+  }
+
+  onKeyPress(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (this.props.onEnterKey) {
+        this.props.onEnterKey(event);
       }
     }
   }
@@ -38,6 +48,7 @@ class Amount extends Component {
                disabled={!this.state.canEdit}
                value={this.state.value || ""}
                onChange={this.handleChange}
+               onKeyPress={this.onKeyPress}
                aria-label={this.props.label || ""}
                label={this.props.label || ""} />
       </div>
