@@ -83,8 +83,8 @@ class Calculator extends Component {
             name="person-2"
             person={this.state.person2.name || ""}
             onValues={this.onSecondPerson}
-            amount={this.state.total - this.state.person1.amount}
-            max={this.state.total - this.state.person1.amount}
+            amount={(this.state.total - this.state.person1.amount).toFixed(2)}
+            max={(this.state.total - this.state.person1.amount).toFixed(2)}
             canEditAmount={false}
             personLabel="The name of the second person."
             amountLabel="Enter the statement amount from the credit card bill for the second person."
