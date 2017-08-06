@@ -24,5 +24,6 @@ deploy:
   skip_cleanup: true
   local_dir: build
   detect_encoding: true
+  cache_control: "max-age=604800"
   on:
     branch: deploy
