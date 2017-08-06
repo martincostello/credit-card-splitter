@@ -1,6 +1,11 @@
 {
   "short_name": "CC Splitter",
   "name": "Credit Card Splitter",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "lang": "en-GB",
   "icons": [
     {
       "src": "logo-16.png",
@@ -47,9 +52,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
