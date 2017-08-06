@@ -43,13 +43,13 @@ class Split extends Component {
   render() {
     return (
       <div>
-        <p className="app-instruction app-intro lead">
+        <p className="app-intro">
           {this.props.title || "?"}
         </p>
-        <p className="lead text-center">
+        <p>
           Apparent total: £{this.state.share.toFixed(2)}
         </p>
-        <p className="lead text-center">
+        <p>
           Current split: £{(this.state.split / 2).toFixed(2)} each
         </p>
         <form className="form-inline text-center">

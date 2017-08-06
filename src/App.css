@@ -1,18 +1,12 @@
-/*
 .app {
+  text-align: center;
 }
-*/
 
 .app-header {
   background-color: #222;
   color: white;
   height: 20%;
   padding: 20px;
-  text-align: center;
-}
-
-.app-instruction {
-  text-align: center;
 }
 
 .app-intro {
@@ -22,6 +16,10 @@
 .app-logo {
   animation: app-logo-spin infinite 20s linear;
   height: 80px;
+}
+
+.form-control {
+  font-size: 16px;
 }
 
 @keyframes app-logo-spin {
