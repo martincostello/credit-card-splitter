@@ -23,6 +23,7 @@ deploy:
     secure: "Ar/dArP9/l72nMss4oGB+Pc4OUF10HNJwUmyfW7Lg6IjrIP0WQzLrDFo7MiAmAvCrYStAsoryE+BRtMqZZ3iXFsICuCp4e8BnPoYJbnU+CJXci+Aa+IopGrPEisiJB50SVZ01NOuW+Tu9a816D4ZnKEQJBGEzptup7F2hDoPFlCs32nff4kygPg7aDKE2PO6WJHNd1TAqUukBkjS/Wqtuwf+Q3q76WdlYvjGLSAuoy/HyhodsMLXSYfg0ePZMMMUVcNEJWptjdKgxFkUA+THV/yOgu2svJ/mK8akdmySlv97Vby0QrVh6KiozHQsnvoOjNqjEQol76bhL15yO2F+kyxl8OrKQfqlutm2hGv0co3O48YUKLE8zEXeQ9SIFIN97LKkV9KdeurDLdu3cYB0FvYgDW9jurdhtY8gjIMgwcU6gP7tf8QAt9rXDu0Wd26H9x5ITGDBamyyjs7iWV5AiS1NW1LsSdND7tLR/zcJtOitqUvhOwJ2+y+KNrlxqIFu1OzBbMRCwkOcX5Dd3KfYWwW3s9JYhEs9+hZKcnTD8gpg9Rjw6I3XS+PheWpyljzESnWhoRkgWrwPgg32PH6h0T6XoXNrqcgf7NXU/VgBFVsR/HpSgMpeFxV4uY2iPJ/4jc+RPl3cVzrSbXCG7fgVaoflr1g4tHA+I8jN8KRWWhA="
   bucket: "bills.martincostello.com"
   region: eu-west-2
+  skip_cleanup: true
   local_dir: build
   on:
     branch: deploy
