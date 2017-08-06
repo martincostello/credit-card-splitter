@@ -23,5 +23,6 @@ deploy:
   region: eu-west-2
   skip_cleanup: true
   local_dir: build
+  detect_encoding: true
   on:
     branch: deploy
