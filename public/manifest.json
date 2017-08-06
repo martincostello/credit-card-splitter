@@ -1,6 +1,6 @@
 {
-  "short_name": "Credit Card Splitter",
-  "name": "Splits credit card bills",
+  "short_name": "CC Splitter",
+  "name": "Credit Card Splitter",
   "icons": [
     {
       "src": "favicon.ico",
