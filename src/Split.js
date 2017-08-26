@@ -9,7 +9,8 @@ class Split extends Component {
       share: this.props.share,
       split: 0,
       canAdd: false,
-      currentValue: 0
+      currentValue: 0,
+      values: []
     };
     this.onNext = this.onNext.bind(this);
     this.onAdd = this.onAdd.bind(this);
@@ -27,7 +28,8 @@ class Split extends Component {
       share: this.state.share,
       split: this.state.split + this.state.currentValue,
       canAdd: false,
-      currentValue: ""
+      currentValue: "",
+      values: this.state.currentValue ? this.state.values.concat(this.state.currentValue.toFixed(2)) : this.state.values.slice()
     });
   }
 
@@ -36,7 +38,8 @@ class Split extends Component {
       share: this.state.share,
       split: this.state.split,
       canAdd: (this.state.share - this.state.split) >= amount,
-      currentValue: amount
+      currentValue: amount,
+      values: this.state.values.slice()
     });
   }
 
@@ -59,6 +62,7 @@ class Split extends Component {
               value={this.state.currentValue}
               label="Enter the value of the transaction."
               currency={this.props.currency}
+              autofocus={true}
               onValueChanged={this.onAmountChanged}
               onEnterKey={this.onAdd}
               min={0.01}
@@ -82,6 +86,19 @@ class Split extends Component {
               title={this.props.nextLabel}>{this.props.nextButton}</button>
           </div>
         </form>
+        <hr />
+        <div>
+          <ul className="list-group">
+            {this.state.values.map((value, index) => (
+              <li key={index} className="list-group-item">
+                <small>{this.props.currency}{value}</small>
+                <button type="button" className="btn btn-danger btn-xs" aria-label="Delete">
+                  <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
