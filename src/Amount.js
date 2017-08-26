@@ -17,7 +17,7 @@ class Amount extends Component {
     var value = event.target.value;
 
     if (!value) {
-      this.setState({ value: parsed });
+      this.setState({ value: "" });
       return;
     }
 
@@ -50,7 +50,9 @@ class Amount extends Component {
     return (
       <div className="input-group">
         <span className="input-group-addon" aria-hidden="true">{this.props.currency || "£"}</span>
-        <input name={this.props.name || ""}
+        <input
+          autoFocus={this.props.autofocus}
+          name={this.props.name || ""}
           className="form-control"
           placeholder={this.props.placeholder || "0.00"}
           min={this.props.min || "0.00"}
