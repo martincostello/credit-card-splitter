@@ -93,21 +93,25 @@ class Split extends Component {
               max={(this.state.share - this.state.split).toFixed(2)} />
           </div>
           <div className="form-group">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.onAdd}
-              disabled={!this.state.canAdd}
-              aria-label="Add this transaction."
-              title="Add this transaction.">Add</button>
-          </div>
-          <div className="form-group">
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={this.onNext}
-              aria-label={this.props.nextLabel}
-              title={this.props.nextLabel}>{this.props.nextButton}</button>
+            <div className="btn-toolbar" role="toolbar">
+              <div className="btn-group" role="group">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={this.onAdd}
+                  disabled={!this.state.canAdd}
+                  aria-label="Add this transaction."
+                  title="Add this transaction.">Add</button>
+              </div>
+              <div className="btn-group" role="group">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={this.onNext}
+                  aria-label={this.props.nextLabel}
+                  title={this.props.nextLabel}>{this.props.nextButton}</button>
+              </div>
+            </div>
           </div>
         </form>
         <hr />
