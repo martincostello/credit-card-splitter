@@ -166,11 +166,11 @@ class Calculator extends Component {
         {this.state.step >= 5 ? <div className="lead text-center">
           <p>Total: {this.props.currency}{parseFloat(this.state.total).toFixed(2)}</p>
           <p>
-            {this.state.person1.name}: {this.props.currency}{this.total1()} (<code>{this.state.person1.amount.toFixed(2)} - {this.state.person1.splitAmount.toFixed(2)} + {this.state.person2.splitAmount.toFixed(2)}</code>)
-            </p>
+            {this.state.person1.name}: <strong>{this.props.currency}{this.total1()}</strong> (<code>{this.state.person1.amount.toFixed(2)} - {this.state.person1.splitAmount.toFixed(2)} + {this.state.person2.splitAmount.toFixed(2)}</code>)
+          </p>
           <p>
-            {this.state.person2.name}: {this.props.currency}{this.total2()} (<code>{this.state.person2.amount.toFixed(2)} - {this.state.person2.splitAmount.toFixed(2)} + {this.state.person1.splitAmount.toFixed(2)}</code>)
-            </p>
+            {this.state.person2.name}: <strong>{this.props.currency}{this.total2()}</strong> (<code>{this.state.person2.amount.toFixed(2)} - {this.state.person2.splitAmount.toFixed(2)} + {this.state.person1.splitAmount.toFixed(2)}</code>)
+          </p>
         </div> : ""}
       </div>
     );
