@@ -54,28 +54,31 @@ class Split extends Component {
         </p>
         <form className="form-inline text-center">
           <div className="form-group">
-            <Amount name="amount"
-                    value={this.state.currentValue}
-                    label="Enter the value of the transaction."
-                    onValueChanged={this.onAmountChanged}
-                    onEnterKey={this.onAdd}
-                    min={0.01}
-                    max={(this.state.share - this.state.split)} />
+            <Amount
+              name="amount"
+              value={this.state.currentValue}
+              label="Enter the value of the transaction."
+              onValueChanged={this.onAmountChanged}
+              onEnterKey={this.onAdd}
+              min={0.01}
+              max={(this.state.share - this.state.split).toFixed(2)} />
           </div>
           <div className="form-group">
-            <button type="button"
-                    className="btn btn-primary"
-                    onClick={this.onAdd}
-                    disabled={!this.state.canAdd}
-                    aria-label="Add this transaction."
-                    title="Add this transaction.">Add</button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.onAdd}
+              disabled={!this.state.canAdd}
+              aria-label="Add this transaction."
+              title="Add this transaction.">Add</button>
           </div>
           <div className="form-group">
-            <button type="button"
-                    className="btn btn-success"
-                    onClick={this.onNext}
-                    aria-label={this.props.nextLabel}
-                    title={this.props.nextLabel}>{this.props.nextButton}</button>
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={this.onNext}
+              aria-label={this.props.nextLabel}
+              title={this.props.nextLabel}>{this.props.nextButton}</button>
           </div>
         </form>
       </div>
