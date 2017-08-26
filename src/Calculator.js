@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import React, { Component } from "react";
 
 import Person from "./Person";
+import Result from "./Result";
 import Split from "./Split";
 import Total from "./Total";
 
@@ -9,6 +10,24 @@ class Calculator extends Component {
 
   constructor() {
     super();
+
+    this.isSharedState = false;
+    this.restoredState = null;
+
+    if (window.location.hash && window.location.hash.length > 1) {
+      try {
+        var encoded = decodeURIComponent(window.location.hash.substring(1));
+        var json = atob(encoded);
+        this.restoredState = JSON.parse(json);
+
+        window.location.hash = "";
+        this.isSharedState = true;
+      }
+      catch (e) {
+        console.error(e);
+      }
+    }
+
     this.state = {
       total: 0,
       person1: {
@@ -108,7 +127,7 @@ class Calculator extends Component {
     return (
       <div className="app-calculator">
         {
-          this.state.step === 0 ?
+          !this.isSharedState && this.state.step === 0 ?
             <Total currency={this.props.currency} onTotal={this.onTotal} />
             : ""
         }
@@ -126,7 +145,7 @@ class Calculator extends Component {
               buttonText="Set amount" />
             : ""}
         {
-          this.state.step === 2 ?
+          !this.isSharedState && this.state.step === 2 ?
             <Person
               title="Now set the apparent total for the second person:"
               name="person-2"
@@ -142,7 +161,7 @@ class Calculator extends Component {
             : ""
         }
         {
-          this.state.step === 3 ?
+          !this.isSharedState && this.state.step === 3 ?
             <Split
               title={`OK, now enter the transaction amounts to split 50:50 from ${this.state.person1.name}${this.state.person1.name[this.state.person1.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
               share={this.state.person1.amount}
@@ -153,7 +172,7 @@ class Calculator extends Component {
             : ""
         }
         {
-          this.state.step === 4 ?
+          !this.isSharedState && this.state.step === 4 ?
             <Split
               title={`Next, enter the transaction amounts to split 50:50 from ${this.state.person2.name}${this.state.person2.name[this.state.person2.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
               share={this.state.person2.amount}
@@ -163,15 +182,24 @@ class Calculator extends Component {
               nextButton="Done" />
             : ""
         }
-        {this.state.step >= 5 ? <div className="lead text-center">
-          <p>Total: {this.props.currency}{parseFloat(this.state.total).toFixed(2)}</p>
-          <p>
-            {this.state.person1.name}: <strong>{this.props.currency}{this.total1()}</strong> (<code>{this.state.person1.amount.toFixed(2)} - {this.state.person1.splitAmount.toFixed(2)} + {this.state.person2.splitAmount.toFixed(2)}</code>)
-          </p>
-          <p>
-            {this.state.person2.name}: <strong>{this.props.currency}{this.total2()}</strong> (<code>{this.state.person2.amount.toFixed(2)} - {this.state.person2.splitAmount.toFixed(2)} + {this.state.person1.splitAmount.toFixed(2)}</code>)
-          </p>
-        </div> : ""}
+        { !this.isSharedState && this.state.step >= 5 ?
+          <Result
+            currency={this.props.currency}
+            person1={this.state.person1.name}
+            person2={this.state.person2.name}
+            showShareButton={true}
+            total={parseFloat(this.state.total).toFixed(2)}
+            total1={this.total1()}
+            total2={this.total2()} /> : "" }
+        { this.isSharedState ?
+          <Result
+            currency={this.restoredState.currency}
+            person1={this.restoredState.person1}
+            person2={this.restoredState.person2}
+            showShareButton={false}
+            total={this.restoredState.total}
+            total1={this.restoredState.total1}
+            total2={this.restoredState.total2} /> : "" }
       </div>
     );
   }
