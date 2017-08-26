@@ -114,56 +114,60 @@ class Calculator extends Component {
         }
         {
           this.state.step === 1 ?
-          <Person title="Next, set the apparent total for the first person:"
-                  name="person-1"
-                  person={this.state.person1.name || ""}
-                  max={this.state.total - 0.01}
-                  onValues={this.onFirstPerson}
-                  personLabel="The name of the first person."
-                  amountLabel="Enter the statement amount from the credit card bill for the first person."
-                  buttonText="Set amount" />
-          : "" }
+            <Person
+              title="Next, set the apparent total for the first person:"
+              name="person-1"
+              person={this.state.person1.name || ""}
+              max={this.state.total - 0.01}
+              onValues={this.onFirstPerson}
+              personLabel="The name of the first person."
+              amountLabel="Enter the statement amount from the credit card bill for the first person."
+              buttonText="Set amount" />
+            : ""}
         {
           this.state.step === 2 ?
-          <Person title="Now set the apparent total for the second person:"
-                  name="person-2"
-                  person={this.state.person2.name || ""}
-                  onValues={this.onSecondPerson}
-                  amount={(this.state.total - this.state.person1.amount).toFixed(2)}
-                  max={(this.state.total - this.state.person1.amount)}
-                  canEditAmount={false}
-                  personLabel="The name of the second person."
-                  amountLabel="Enter the statement amount from the credit card bill for the second person."
-                  buttonText="Set amount" />
-          : ""
+            <Person
+              title="Now set the apparent total for the second person:"
+              name="person-2"
+              person={this.state.person2.name || ""}
+              onValues={this.onSecondPerson}
+              amount={(this.state.total - this.state.person1.amount).toFixed(2)}
+              max={(this.state.total - this.state.person1.amount)}
+              canEditAmount={false}
+              personLabel="The name of the second person."
+              amountLabel="Enter the statement amount from the credit card bill for the second person."
+              buttonText="Set amount" />
+            : ""
         }
         {
           this.state.step === 3 ?
-            <Split title={`OK, now enter the transaction amounts to split 50:50 from ${this.state.person1.name}${this.state.person1.name[this.state.person1.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
-                   share={this.state.person1.amount}
-                   onSplits={this.onFirstSplits}
-                   nextLabel="Add the next set of transactions."
-                   nextButton="Next" />
+            <Split
+              title={`OK, now enter the transaction amounts to split 50:50 from ${this.state.person1.name}${this.state.person1.name[this.state.person1.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
+              share={this.state.person1.amount}
+              onSplits={this.onFirstSplits}
+              nextLabel="Add the next set of transactions."
+              nextButton="Next" />
             : ""
         }
         {
           this.state.step === 4 ?
-            <Split title={`Next, enter the transaction amounts to split 50:50 from ${this.state.person2.name}${this.state.person2.name[this.state.person2.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
-                   share={this.state.person2.amount}
-                   onSplits={this.onSecondSplits}
-                   nextLabel="View the amounts each person owes."
-                   nextButton="Done" />
+            <Split
+              title={`Next, enter the transaction amounts to split 50:50 from ${this.state.person2.name}${this.state.person2.name[this.state.person2.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
+              share={this.state.person2.amount}
+              onSplits={this.onSecondSplits}
+              nextLabel="View the amounts each person owes."
+              nextButton="Done" />
             : ""
         }
         {this.state.step >= 5 ? <div className="lead text-center">
-            <p>Total: £{this.state.total}</p>
-            <p>
-              {this.state.person1.name}: £{this.total1()} (<code>{this.state.person1.amount.toFixed(2)} - {this.state.person1.splitAmount.toFixed(2)} + {this.state.person2.splitAmount.toFixed(2)}</code>)
+          <p>Total: £{parseFloat(this.state.total).toFixed(2)}</p>
+          <p>
+            {this.state.person1.name}: £{this.total1()} (<code>{this.state.person1.amount.toFixed(2)} - {this.state.person1.splitAmount.toFixed(2)} + {this.state.person2.splitAmount.toFixed(2)}</code>)
             </p>
-            <p>
-              {this.state.person2.name}: £{this.total2()} (<code>{this.state.person2.amount.toFixed(2)} - {this.state.person2.splitAmount.toFixed(2)} + {this.state.person1.splitAmount.toFixed(2)}</code>)
+          <p>
+            {this.state.person2.name}: £{this.total2()} (<code>{this.state.person2.amount.toFixed(2)} - {this.state.person2.splitAmount.toFixed(2)} + {this.state.person1.splitAmount.toFixed(2)}</code>)
             </p>
-          </div> : "" }
+        </div> : ""}
       </div>
     );
   }
