@@ -25,7 +25,7 @@ class Split extends Component {
   }
 
   onAdd(event) {
-    if (this.state.currentValue) {
+    if (this.state.currentValue && this.state.canAdd) {
 
       this.setState({
         share: this.state.share,
