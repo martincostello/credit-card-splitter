@@ -8,6 +8,8 @@
 
 An application to split parts of a credit card bill between two people.
 
+The latest version of the application can be found at [https://bills.martincostello.com](https://bills.martincostello.com), which serves the compiled application's static content via CloudFront from an Amazon S3 bucket.
+
 ## Feedback
 
 Any feedback or issues can be added to the issues for this project in [GitHub](https://github.com/martincostello/credit-card-splitter/issues).
