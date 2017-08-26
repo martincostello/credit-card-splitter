@@ -36,9 +36,10 @@ class Total extends Component {
         <form className="form-inline">
           <div className="form-group">
             <Amount
+              currency={this.props.currency}
               name="total"
               min={0.01}
-              label="Enter the total amount for the credit card bill in pounds and pence."
+              label="Enter the total amount for the credit card bill."
               autofocus={true}
               onEnterKey={this.onNext}
               onValueChanged={this.onValueChanged} />

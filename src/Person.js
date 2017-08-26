@@ -92,6 +92,7 @@ class Person extends Component {
               name="total-person-1"
               min={0.01}
               max={this.props.max}
+              currency={this.props.currency}
               label={this.props.amountLabel}
               value={this.props.amount || ""}
               autofocus={this.state.autofocus}

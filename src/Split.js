@@ -47,10 +47,10 @@ class Split extends Component {
           {this.props.title || "?"}
         </p>
         <p>
-          Apparent total: £{this.state.share.toFixed(2)}
+          Apparent total: {this.props.currency}{this.state.share.toFixed(2)}
         </p>
         <p>
-          Current split: £{(this.state.split / 2).toFixed(2)} each
+          Current split: {this.props.currency}{(this.state.split / 2).toFixed(2)} each
         </p>
         <form className="form-inline text-center">
           <div className="form-group">
@@ -58,6 +58,7 @@ class Split extends Component {
               name="amount"
               value={this.state.currentValue}
               label="Enter the value of the transaction."
+              currency={this.props.currency}
               onValueChanged={this.onAmountChanged}
               onEnterKey={this.onAdd}
               min={0.01}

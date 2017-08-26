@@ -109,7 +109,7 @@ class Calculator extends Component {
       <div className="app-calculator">
         {
           this.state.step === 0 ?
-            <Total onTotal={this.onTotal} />
+            <Total currency={this.props.currency} onTotal={this.onTotal} />
             : ""
         }
         {
@@ -119,6 +119,7 @@ class Calculator extends Component {
               name="person-1"
               person={this.state.person1.name || ""}
               max={this.state.total - 0.01}
+              currency={this.props.currency}
               onValues={this.onFirstPerson}
               personLabel="The name of the first person."
               amountLabel="Enter the statement amount from the credit card bill for the first person."
@@ -133,6 +134,7 @@ class Calculator extends Component {
               onValues={this.onSecondPerson}
               amount={(this.state.total - this.state.person1.amount).toFixed(2)}
               max={(this.state.total - this.state.person1.amount).toFixed(2)}
+              currency={this.props.currency}
               canEditAmount={false}
               personLabel="The name of the second person."
               amountLabel="Enter the statement amount from the credit card bill for the second person."
@@ -144,6 +146,7 @@ class Calculator extends Component {
             <Split
               title={`OK, now enter the transaction amounts to split 50:50 from ${this.state.person1.name}${this.state.person1.name[this.state.person1.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
               share={this.state.person1.amount}
+              currency={this.props.currency}
               onSplits={this.onFirstSplits}
               nextLabel="Add the next set of transactions."
               nextButton="Next" />
@@ -154,18 +157,19 @@ class Calculator extends Component {
             <Split
               title={`Next, enter the transaction amounts to split 50:50 from ${this.state.person2.name}${this.state.person2.name[this.state.person2.name.length - 1] === "s" ? "'" : "'s"} transactions:`}
               share={this.state.person2.amount}
+              currency={this.props.currency}
               onSplits={this.onSecondSplits}
               nextLabel="View the amounts each person owes."
               nextButton="Done" />
             : ""
         }
         {this.state.step >= 5 ? <div className="lead text-center">
-          <p>Total: £{parseFloat(this.state.total).toFixed(2)}</p>
+          <p>Total: {this.props.currency}{parseFloat(this.state.total).toFixed(2)}</p>
           <p>
-            {this.state.person1.name}: £{this.total1()} (<code>{this.state.person1.amount.toFixed(2)} - {this.state.person1.splitAmount.toFixed(2)} + {this.state.person2.splitAmount.toFixed(2)}</code>)
+            {this.state.person1.name}: {this.props.currency}{this.total1()} (<code>{this.state.person1.amount.toFixed(2)} - {this.state.person1.splitAmount.toFixed(2)} + {this.state.person2.splitAmount.toFixed(2)}</code>)
             </p>
           <p>
-            {this.state.person2.name}: £{this.total2()} (<code>{this.state.person2.amount.toFixed(2)} - {this.state.person2.splitAmount.toFixed(2)} + {this.state.person1.splitAmount.toFixed(2)}</code>)
+            {this.state.person2.name}: {this.props.currency}{this.total2()} (<code>{this.state.person2.amount.toFixed(2)} - {this.state.person2.splitAmount.toFixed(2)} + {this.state.person1.splitAmount.toFixed(2)}</code>)
             </p>
         </div> : ""}
       </div>

@@ -14,7 +14,7 @@ class App extends Component {
           <h1>Credit Card Splitter</h1>
         </div>
         <div className="app-content container">
-          <Calculator />
+          <Calculator currency="£" />
         </div>
       </div>
     );
