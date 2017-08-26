@@ -11,11 +11,15 @@ class Person extends Component {
     amount = parseFloat(amount);
     var max = this.props.max || null;
 
+    var canContinue = name && amount > 0 && (!amount || amount <= max);
+    var autofocus = name && !canContinue;
+
     this.state = {
       name: name,
       amount: amount,
       max: max,
-      canContinue: name && amount > 0 && (!amount || amount <= max)
+      canContinue: canContinue,
+      autofocus: autofocus
     };
 
     this.onNext = this.onNext.bind(this);
@@ -70,27 +74,30 @@ class Person extends Component {
               <span className="input-group-addon" aria-hidden="true">
                 <span className="glyphicon glyphicon-user"></span>
               </span>
-              <input name={this.props.name}
-                     className="form-control"
-                     onChange={this.onNameChanged}
-                     onKeyPress={this.onKeyPress}
-                     placeholder={this.props.person || "Name"}
-                     defaultValue={this.props.person || ""}
-                     type="text"
-                     aria-label={this.personLabel}
-                     autoFocus
-                     label={this.personLabel} />
+              <input
+                name={this.props.name}
+                className="form-control"
+                onChange={this.onNameChanged}
+                onKeyPress={this.onKeyPress}
+                placeholder={this.props.person || "Name"}
+                defaultValue={this.props.person || ""}
+                type="text"
+                aria-label={this.personLabel}
+                autoFocus
+                label={this.personLabel} />
             </div>
           </div>
           <div className="form-group">
-            <Amount name="total-person-1"
-                    min={0.01}
-                    max={this.props.max}
-                    label={this.props.amountLabel}
-                    onEnterKey={this.onNext}
-                    onValueChanged={this.onAmountChanged}
-                    value={this.props.amount || ""}
-                    canEditAmount={this.props.canEditAmount} />
+            <Amount
+              name="total-person-1"
+              min={0.01}
+              max={this.props.max}
+              label={this.props.amountLabel}
+              value={this.props.amount || ""}
+              autofocus={this.state.autofocus}
+              onEnterKey={this.onNext}
+              onValueChanged={this.onAmountChanged}
+              canEditAmount={this.props.canEditAmount} />
           </div>
           <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>{this.props.buttonText}</button>
         </form>
