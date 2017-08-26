@@ -14,6 +14,7 @@ class Split extends Component {
     };
     this.onNext = this.onNext.bind(this);
     this.onAdd = this.onAdd.bind(this);
+    this.onRemove = this.onRemove.bind(this);
     this.onAmountChanged = this.onAmountChanged.bind(this);
   }
 
@@ -29,9 +30,26 @@ class Split extends Component {
       split: this.state.split + this.state.currentValue,
       canAdd: false,
       currentValue: "",
-      values: this.state.currentValue ? this.state.values.concat(this.state.currentValue.toFixed(2)) : this.state.values.slice()
+      values: this.state.currentValue ? this.state.values.concat(this.state.currentValue) : this.state.values.slice()
     });
   }
+
+  onRemove(index) {
+
+    var removed = this.state.values[index];
+    var newSplit = this.state.split - removed;
+
+    var values = this.state.values;
+    values.splice(index, 1);
+
+    this.setState({
+      share: this.state.share,
+      split: newSplit,
+      canAdd: this.state.canAdd,
+      currentValue: this.state.currentValue,
+      values: values.slice()
+    });
+  }1302.26
 
   onAmountChanged(amount) {
     this.setState({
@@ -90,9 +108,14 @@ class Split extends Component {
         <div>
           <ul className="list-group">
             {this.state.values.map((value, index) => (
-              <li key={index} className="list-group-item">
-                <small>{this.props.currency}{value}</small>
-                <button type="button" className="btn btn-danger btn-xs" aria-label="Delete">
+              <li key={index} className="list-group-item col-md-6 col-md-offset-3">
+                <small>{this.props.currency}{value.toFixed(2)}</small>
+                <button
+                  type="button"
+                  className="btn btn-danger btn-xs pull-right"
+                  aria-label="Delete"
+                  title="Delete this value"
+                  onClick={() => this.onRemove(index)}>
                   <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button>
               </li>
