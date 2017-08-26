@@ -25,13 +25,15 @@ class Split extends Component {
   }
 
   onAdd(event) {
-    this.setState({
-      share: this.state.share,
-      split: this.state.split + this.state.currentValue,
-      canAdd: false,
-      currentValue: "",
-      values: this.state.currentValue ? this.state.values.concat(this.state.currentValue) : this.state.values.slice()
-    });
+    if (this.state.currentValue) {
+      this.setState({
+        share: this.state.share,
+        split: this.state.split + this.state.currentValue,
+        canAdd: false,
+        currentValue: "",
+        values: this.state.currentValue ? this.state.values.concat(this.state.currentValue) : this.state.values.slice()
+      });
+    }
   }
 
   onRemove(index) {
