@@ -40,4 +40,4 @@ deploy:
     zip: "cloudfront.js"
     publish: true
     on:
-      branch: master
+      branch: deploy
