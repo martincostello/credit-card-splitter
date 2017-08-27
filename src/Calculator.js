@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import React, { Component } from "react";
 
 import Person from "./Person";
@@ -28,26 +27,42 @@ class Calculator extends Component {
       }
     }
 
-    this.state = {
-      total: 0,
-      person1: {
-        name: Cookies.get("cc-splitter-person-1") || "",
-        amount: 0,
-        splitAmount: 0
-      },
-      person2: {
-        name: Cookies.get("cc-splitter-person-2") || "",
-        amount: 0,
-        splitAmount: 0
-      },
-      step: 0
-    };
-
+    this.getStorageValue = this.getStorageValue.bind(this);
+    this.setStorageValue = this.setStorageValue.bind(this);
     this.onTotal = this.onTotal.bind(this);
     this.onFirstPerson = this.onFirstPerson.bind(this);
     this.onSecondPerson = this.onSecondPerson.bind(this);
     this.onFirstSplits = this.onFirstSplits.bind(this);
     this.onSecondSplits = this.onSecondSplits.bind(this);
+
+    this.state = {
+      total: 0,
+      person1: {
+        name: this.getStorageValue("cc-splitter-person-1") || "",
+        amount: 0,
+        splitAmount: 0
+      },
+      person2: {
+        name: this.getStorageValue("cc-splitter-person-2") || "",
+        amount: 0,
+        splitAmount: 0
+      },
+      step: 0
+    };
+  }
+
+  getStorageValue(key) {
+    var value = null;
+    if (typeof (Storage) !== "undefined") {
+      value = localStorage.getItem(key);
+    }
+    return value;
+  }
+
+  setStorageValue(key, data) {
+    if (typeof (Storage) !== "undefined") {
+      localStorage.setItem(key, data);
+    }
   }
 
   onTotal(total) {
@@ -71,7 +86,7 @@ class Calculator extends Component {
         person2: this.state.person2,
         step: ++this.state.step
       });
-      Cookies.set("cc-splitter-person-1", name);
+      this.setStorageValue("cc-splitter-person-1", name);
     }
   }
 
@@ -86,7 +101,7 @@ class Calculator extends Component {
       person1: this.state.person1,
       step: ++this.state.step
     });
-    Cookies.set("cc-splitter-person-2", name);
+    this.setStorageValue("cc-splitter-person-2", name);
   }
 
   onFirstSplits(splitAmount) {
@@ -182,7 +197,7 @@ class Calculator extends Component {
               nextButton="Done" />
             : ""
         }
-        { !this.isSharedState && this.state.step >= 5 ?
+        {!this.isSharedState && this.state.step >= 5 ?
           <Result
             currency={this.props.currency}
             person1={this.state.person1.name}
@@ -190,8 +205,8 @@ class Calculator extends Component {
             showShareButton={true}
             total={parseFloat(this.state.total).toFixed(2)}
             total1={this.total1()}
-            total2={this.total2()} /> : "" }
-        { this.isSharedState ?
+            total2={this.total2()} /> : ""}
+        {this.isSharedState ?
           <Result
             currency={this.restoredState.currency}
             person1={this.restoredState.person1}
@@ -199,7 +214,7 @@ class Calculator extends Component {
             showShareButton={false}
             total={this.restoredState.total}
             total1={this.restoredState.total1}
-            total2={this.restoredState.total2} /> : "" }
+            total2={this.restoredState.total2} /> : ""}
       </div>
     );
   }
