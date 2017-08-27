@@ -38,5 +38,6 @@ deploy:
     timeout: 1,
     runtime: "nodejs6.10"
     zip: "cloudfront.js"
+    publish: true
     on:
       branch: master
