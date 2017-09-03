@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import FormatNumber from "./Helpers";
 import Person from "./Person";
 import Result from "./Result";
 import Split from "./Split";
@@ -131,11 +132,11 @@ class Calculator extends Component {
   }
 
   total1() {
-    return (this.state.person1.amount - this.state.person1.splitAmount + this.state.person2.splitAmount).toFixed(2);
+    return FormatNumber(this.state.person1.amount - this.state.person1.splitAmount + this.state.person2.splitAmount);
   }
 
   total2() {
-    return (this.state.person2.amount - this.state.person2.splitAmount + this.state.person1.splitAmount).toFixed(2);
+    return FormatNumber(this.state.person2.amount - this.state.person2.splitAmount + this.state.person1.splitAmount);
   }
 
   render() {
@@ -166,8 +167,8 @@ class Calculator extends Component {
               name="person-2"
               person={this.state.person2.name || ""}
               onValues={this.onSecondPerson}
-              amount={(this.state.total - this.state.person1.amount).toFixed(2)}
-              max={(this.state.total - this.state.person1.amount).toFixed(2)}
+              amount={FormatNumber(this.state.total - this.state.person1.amount)}
+              max={FormatNumber(this.state.total - this.state.person1.amount)}
               currency={this.props.currency}
               canEditAmount={false}
               personLabel="The name of the second person."
@@ -203,7 +204,7 @@ class Calculator extends Component {
             person1={this.state.person1.name}
             person2={this.state.person2.name}
             showShareButton={true}
-            total={parseFloat(this.state.total).toFixed(2)}
+            total={FormatNumber(parseFloat(this.state.total))}
             total1={this.total1()}
             total2={this.total2()} /> : ""}
         {this.isSharedState ?
