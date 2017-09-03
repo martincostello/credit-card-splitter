@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+
 import Amount from "./Amount";
+import FormatNumber from "./Helpers";
 
 class Split extends Component {
 
@@ -73,10 +75,10 @@ class Split extends Component {
           {this.props.title || "?"}
         </p>
         <p>
-          Apparent total: {this.props.currency}{this.state.share.toFixed(2)}
+          Apparent total: {this.props.currency}{FormatNumber(this.state.share)}
         </p>
         <p>
-          Current split: {this.props.currency}{(this.state.split / 2).toFixed(2)} each
+          Current split: {this.props.currency}{FormatNumber(this.state.split / 2)} each
         </p>
         <form className="form-inline text-center">
           <div className="form-group">
@@ -90,7 +92,7 @@ class Split extends Component {
               onValueChanged={this.onAmountChanged}
               onEnterKey={this.onAdd}
               min={0.01}
-              max={(this.state.share - this.state.split).toFixed(2)} />
+              max={FormatNumber(this.state.share - this.state.split)} />
           </div>
           <div className="form-group">
             <div className="btn-toolbar" role="toolbar">
@@ -119,7 +121,7 @@ class Split extends Component {
           <ul className="list-group">
             {this.state.values.map((value, index) => (
               <li key={index} className="list-group-item col-md-6 col-md-offset-3">
-                <small>{this.props.currency}{value.toFixed(2)}</small>
+                <small>{FormatNumber(value)}</small>
                 <button
                   type="button"
                   className="btn btn-danger btn-xs pull-right"
