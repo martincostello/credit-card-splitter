@@ -15,6 +15,7 @@ exports.handler = (event, context, callback) => {
     { key: "X-Content-Type-Options", value: "nosniff" },
     { key: "X-Download-Options", value: "noopen" },
     { key: "X-Frame-Options", value: "DENY" },
+    { key: "X-UA-Compatible", value: "IE=edge" },
     { key: "X-XSS-Protection", value: "1; mode=block" }
   ];
 
