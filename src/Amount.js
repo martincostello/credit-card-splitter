@@ -66,11 +66,13 @@ class Amount extends Component {
   render() {
     return (
       <div className="input-group">
-        <span className="input-group-addon" aria-hidden="true">{this.props.currency || "£"}</span>
+        <div className="input-group-prepend" aria-hidden="true">
+          <span className="input-group-text">{this.props.currency || "£"}</span>
+        </div>
         <input
           autoFocus={this.props.autofocus}
           name={this.props.name || ""}
-          className="form-control"
+          className="form-control form-control-lg"
           placeholder={this.props.placeholder || "0.00"}
           min={this.props.min || "0.00"}
           max={this.props.max || ""}
