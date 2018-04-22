@@ -65,18 +65,20 @@ class Person extends Component {
   render() {
     return (
       <div>
-        <p className="app-intro app-instruction lead">
+        <p className="app-intro app-instruction">
           {this.props.title || "?"}
         </p>
         <form className="form-horizontal">
           <div className="form-group">
             <div className="input-group">
-              <span className="input-group-addon" aria-hidden="true">
-                <span className="glyphicon glyphicon-user"></span>
-              </span>
+              <div className="input-group-prepend" aria-hidden="true">
+                <span className="input-group-text">
+                  <i className="fas fa-user"></i>
+                </span>
+              </div>
               <input
                 name={this.props.name}
-                className="form-control"
+                className="form-control form-control-lg"
                 onChange={this.onNameChanged}
                 onKeyPress={this.onKeyPress}
                 placeholder={this.props.person || "Name"}
@@ -100,7 +102,7 @@ class Person extends Component {
               onValueChanged={this.onAmountChanged}
               canEditAmount={this.props.canEditAmount} />
           </div>
-          <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>{this.props.buttonText}</button>
+          <button type="button" className="btn btn-lg btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>{this.props.buttonText}</button>
         </form>
       </div>
     );

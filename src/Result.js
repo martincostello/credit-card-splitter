@@ -41,40 +41,40 @@ class Result extends Component {
 
   render() {
     return (
-      <div className="lead text-center">
-        <p>Total: {this.currency}{this.total}</p>
-        <p>
+      <div className="mx-auto mt-4">
+        <p className="h4">Total: {this.currency}{this.total}</p>
+        <p className="h4">
           {this.person1}: <strong>{this.currency}{this.total1}</strong>
         </p>
-        <p>
+        <p className="h4">
           {this.person2}: <strong>{this.currency}{this.total2}</strong>
         </p>
         {this.showShareButton ? <div>
           <p>
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#share-modal">
-              Share <span className="glyphicon glyphicon-share" aria-hidden="true"></span>
+            <button type="button" className="btn btn-lg btn-primary" data-toggle="modal" data-target="#share-modal">
+              Share <i className="fas fa-share-square" aria-hidden="true"></i>
             </button>
           </p>
           <div className="modal fade" id="share-modal" tabIndex="-1" role="dialog" aria-labelledby="share-modal-label">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 className="modal-title" id="share-modal-label">Share</h4>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div className="modal-body">
                   <p className="lead">
                     Click the button below to copy a URL to use to share the result.
                   </p>
-                  <div className="btn-toolbar" role="toolbar">
-                    <div className="btn-group" role="group">
-                      <button className="btn btn-primary btn-copy" data-clipboard-action="copy" data-clipboard-text={this.buildShareUrl()}>
-                        Copy to clipboard <span className="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                  <div className="row">
+                    <div className="col-6">
+                      <button className="btn btn-block btn-lg btn-primary btn-copy" data-clipboard-action="copy" data-clipboard-text={this.buildShareUrl()}>
+                        Copy link <i className="far fa-clipboard ml-1" aria-hidden="true"></i>
                       </button>
                     </div>
-                    <div className="btn-group" role="group">
-                      <a className="btn btn-default" href={this.buildShareUrl()} target="_blank">
-                        View result <span className="glyphicon glyphicon-share" aria-hidden="true"></span>
+                    <div className="col-6">
+                      <a className="btn btn-block btn-lg btn-secondary" href={this.buildShareUrl()} target="_blank">
+                        View result <i className="fas fa-share-square ml-1" aria-hidden="true"></i>
                       </a>
                     </div>
                   </div>

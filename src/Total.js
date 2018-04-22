@@ -29,11 +29,11 @@ class Total extends Component {
 
   render() {
     return (
-      <div className="text-center" id="panel-total">
-        <p className="app-intro lead">
+      <div className="mx-auto" id="panel-total">
+        <p className="app-intro">
           To get started, enter the total amount for the credit card bill:
         </p>
-        <form className="form-inline">
+        <form className="form-horizontal">
           <div className="form-group">
             <Amount
               currency={this.props.currency}
@@ -45,7 +45,7 @@ class Total extends Component {
               onValueChanged={this.onValueChanged} />
           </div>
           <div className="form-group">
-            <button type="button" className="btn btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>Set total</button>
+            <button type="button" className="btn btn-lg btn-primary" onClick={this.onNext} disabled={!this.state.canContinue}>Set total</button>
           </div>
         </form>
       </div>
