@@ -84,9 +84,9 @@ class Person extends Component {
                 placeholder={this.props.person || "Name"}
                 defaultValue={this.props.person || ""}
                 type="text"
-                aria-label={this.personLabel}
+                aria-label={this.props.personLabel}
                 autoFocus
-                label={this.personLabel} />
+                label={this.props.personLabel} />
             </div>
           </div>
           <div className="form-group">
