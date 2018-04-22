@@ -1,3 +1,18 @@
+@media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+
+  html {
+      font-size: 16px;
+  }
+
+  body {
+      font-size: 1rem;
+  }
+}
+
+a {
+  color: #0F7661;
+}
+
 .app {
   text-align: center;
 }
@@ -18,8 +33,15 @@
   height: 80px;
 }
 
-.form-control {
-  font-size: 16px;
+.btn-success {
+  background-color: #107E68;
+  border-color: #107E68;
+}
+
+.form-control,
+.form-control:focus,
+.input-group-text {
+  color: #212529;
 }
 
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
