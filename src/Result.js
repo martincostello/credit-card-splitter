@@ -59,7 +59,7 @@ class Result extends Component {
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h4 className="modal-title" id="share-modal-label">Share</h4>
+                  <h2 className="h4 modal-title" id="share-modal-label">Share</h2>
                   <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div className="modal-body">
@@ -73,7 +73,7 @@ class Result extends Component {
                       </button>
                     </div>
                     <div className="col-6">
-                      <a className="btn btn-block btn-lg btn-secondary" href={this.buildShareUrl()} target="_blank">
+                      <a className="btn btn-block btn-lg btn-primary" href={this.buildShareUrl()} target="_blank">
                         View result <i className="fas fa-share-square ml-1" aria-hidden="true"></i>
                       </a>
                     </div>
