@@ -1,4 +1,4 @@
-import Clipboard from "clipboard";
+import ClipboardJS from "clipboard";
 import React, { Component } from "react";
 
 class Result extends Component {
@@ -36,7 +36,7 @@ class Result extends Component {
   }
 
   componentDidMount() {
-    new Clipboard(".btn-copy", { container: document.getElementById("share-modal") });
+    new ClipboardJS(".btn-copy", { container: document.getElementById("share-modal") });
   }
 
   render() {
