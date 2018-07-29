@@ -71,7 +71,7 @@ class Calculator extends Component {
       total: total,
       person1: this.state.person1,
       person2: this.state.person2,
-      step: ++this.state.step
+      step: this.state.step + 1
     });
   }
 
@@ -85,7 +85,7 @@ class Calculator extends Component {
           splitAmount: 0
         },
         person2: this.state.person2,
-        step: ++this.state.step
+        step: this.state.step + 1
       });
       this.setStorageValue("cc-splitter-person-1", name);
     }
@@ -100,7 +100,7 @@ class Calculator extends Component {
         splitAmount: 0
       },
       person1: this.state.person1,
-      step: ++this.state.step
+      step: this.state.step + 1
     });
     this.setStorageValue("cc-splitter-person-2", name);
   }
@@ -114,7 +114,7 @@ class Calculator extends Component {
         splitAmount: splitAmount
       },
       person2: this.state.person2,
-      step: ++this.state.step
+      step: this.state.step + 1
     });
   }
 
@@ -127,7 +127,7 @@ class Calculator extends Component {
         splitAmount: splitAmount
       },
       person1: this.state.person1,
-      step: ++this.state.step
+      step: this.state.step + 1
     });
   }
 
