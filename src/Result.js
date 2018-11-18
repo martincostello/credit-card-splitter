@@ -73,7 +73,7 @@ class Result extends Component {
                       </button>
                     </div>
                     <div className="col-6">
-                      <a className="btn btn-block btn-lg btn-primary" href={this.buildShareUrl()} target="_blank">
+                      <a className="btn btn-block btn-lg btn-primary" href={this.buildShareUrl()} target="_blank" rel="noopener noreferrer">
                         View result <i className="fas fa-share-square ml-1" aria-hidden="true"></i>
                       </a>
                     </div>
