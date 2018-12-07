@@ -167,8 +167,8 @@ class Calculator extends Component {
               name="person-2"
               person={this.state.person2.name || ""}
               onValues={this.onSecondPerson}
-              amount={FormatNumber(this.state.total - this.state.person1.amount)}
-              max={FormatNumber(this.state.total - this.state.person1.amount)}
+              amount={this.state.total - this.state.person1.amount}
+              max={this.state.total - this.state.person1.amount}
               currency={this.props.currency}
               canEditAmount={false}
               personLabel="The name of the second person."

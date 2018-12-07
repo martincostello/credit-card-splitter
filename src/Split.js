@@ -87,22 +87,23 @@ class Split extends Component {
                 ref="amount"
                 name="amount"
                 value={this.state.currentValue}
+                autocomplete="off"
                 label="Enter the value of the transaction."
                 currency={this.props.currency}
                 autofocus={true}
                 onValueChanged={this.onAmountChanged}
                 onEnterKey={this.onAdd}
                 min={0.01}
-                max={FormatNumber(this.state.share - this.state.split)} />
+                max={this.state.share - this.state.split} />
             </div>
             <div className="col col-md-2">
               <button
-                  type="button"
-                  className="btn btn-lg btn-primary mr-1"
-                  onClick={this.onAdd}
-                  disabled={!this.state.canAdd}
-                  aria-label="Add this transaction."
-                  title="Add this transaction.">Add</button>
+                type="button"
+                className="btn btn-lg btn-primary mr-1"
+                onClick={this.onAdd}
+                disabled={!this.state.canAdd}
+                aria-label="Add this transaction."
+                title="Add this transaction.">Add</button>
               <button
                 type="button"
                 className="btn btn-lg btn-success ml-1"
