@@ -1,5 +1,5 @@
 const FormatNumber = (value) => {
-  return value.toLocaleString("latn", { minimumFractionDigits: 2 });
+  return value.toLocaleString("en-GB", { minimumFractionDigits: 2 });
 };
 
 export default FormatNumber;
