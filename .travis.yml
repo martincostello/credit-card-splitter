@@ -1,15 +1,15 @@
-dist: xenial
-language: node_js
-node_js: 10
+dist: bionic
+language: csharp
+mono: none
 
-install:
-  - npm install -g codecov
-  - npm ci
+env:
+  global:
+    - DOTNET_CLI_TELEMETRY_OPTOUT=true
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+    - NUGET_XMLDOC_MODE=skip
 
 script:
-  - npm run build
-  - npm test -- --coverage
-  - codecov
+  - ./build.sh
 
 branches:
   only:
@@ -23,7 +23,7 @@ deploy:
     bucket: "bills.martincostello.com"
     region: eu-west-2
     skip_cleanup: true
-    local_dir: build
+    local_dir: "artifacts/publish/wwwroot"
     detect_encoding: true
     cache_control: "max-age=604800"
     on:

@@ -23,10 +23,9 @@ The repository is hosted in [GitHub](https://github.com/martincostello/credit-ca
 To clone and run the application:
 
 ```sh
-> git clone https://github.com/martincostello/credit-card-splitter.git
-> cd credit-card-splitter
-> npm install
-> npm start
+git clone https://github.com/martincostello/credit-card-splitter.git
+cd credit-card-splitter
+./build.ps1
 ```
 
 ## License
