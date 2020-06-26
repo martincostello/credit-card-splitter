@@ -13,7 +13,7 @@ script:
 
 branches:
   only:
-    - master
+    - main
     - deploy
 
 deploy:
