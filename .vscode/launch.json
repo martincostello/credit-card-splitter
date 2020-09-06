@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "blazorwasm",
+      "request": "launch",
+      "name": "Launch and Debug",
+      "cwd": "${workspaceFolder}/src/CreditCardSplitter"
+    }
+  ]
+}
