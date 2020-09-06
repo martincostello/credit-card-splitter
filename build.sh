@@ -46,6 +46,6 @@ fi
 
 dotnet publish ./src/CreditCardSplitter/CreditCardSplitter.csproj --output $artifacts/publish --configuration $configuration || exit 1
 
-#if [ $skipTests == 0 ]; then
-    #dotnet test ./tests/CreditCardSplitter.Tests/CreditCardSplitter.Tests.csproj --output $artifacts --configuration $configuration || exit 1
-#fi
+if [ $skipTests == 0 ]; then
+    dotnet test ./tests/CreditCardSplitter.Tests/CreditCardSplitter.Tests.csproj --output $artifacts --configuration $configuration || exit 1
+fi

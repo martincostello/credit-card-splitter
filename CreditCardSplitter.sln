@@ -20,8 +20,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.sh = build.sh
 		cloudfront.js = cloudfront.js
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CreditCardSplitter.ruleset = CreditCardSplitter.ruleset
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
 		README.md = README.md
+		stylecop.json = stylecop.json
 		update-dotnet-sdk.ps1 = update-dotnet-sdk.ps1
 	EndProjectSection
 EndProject
@@ -37,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\update-dotnet-sdk.yml = .github\workflows\update-dotnet-sdk.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditCardSplitter.Tests", "tests\CreditCardSplitter.Tests\CreditCardSplitter.Tests.csproj", "{687C2DA2-30EE-4667-9CFA-5FE1A81D100D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +53,10 @@ Global
 		{095A0AE8-1606-489A-AE45-5F93CD1A086A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{095A0AE8-1606-489A-AE45-5F93CD1A086A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{095A0AE8-1606-489A-AE45-5F93CD1A086A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{687C2DA2-30EE-4667-9CFA-5FE1A81D100D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{687C2DA2-30EE-4667-9CFA-5FE1A81D100D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{687C2DA2-30EE-4667-9CFA-5FE1A81D100D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{687C2DA2-30EE-4667-9CFA-5FE1A81D100D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +65,7 @@ Global
 		{095A0AE8-1606-489A-AE45-5F93CD1A086A} = {84470C47-274A-4260-A482-84D544262521}
 		{6F17A49F-A190-4078-833F-479E67052223} = {9ADB55AC-7F2F-4EC5-9E16-2C8EC5DE7E06}
 		{6A126F0F-DF2C-4918-AB3B-7E3F878B87EF} = {6F17A49F-A190-4078-833F-479E67052223}
+		{687C2DA2-30EE-4667-9CFA-5FE1A81D100D} = {E7C65B5E-54A4-4B5F-821C-EBC0AC36BF96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {030615FB-3415-457B-A2D2-601104744D62}

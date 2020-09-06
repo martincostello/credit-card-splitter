@@ -109,7 +109,7 @@ function DotNetPublish {
 }
 
 $testProjects = @(
-    #(Join-Path $solutionPath "tests\CreditCardSplitter.Tests\CreditCardSplitter.Tests.csproj")
+    (Join-Path $solutionPath "tests\CreditCardSplitter.Tests\CreditCardSplitter.Tests.csproj")
 )
 
 $publishProjects = @(
