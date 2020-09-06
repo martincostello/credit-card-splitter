@@ -1,8 +1,8 @@
 # Credit Card Splitter
 
-[![Build status](https://travis-ci.org/martincostello/credit-card-splitter.svg?branch=master)](https://travis-ci.org/martincostello/credit-card-splitter) [![Code coverage](https://codecov.io/gh/martincostello/credit-card-splitter/branch/master/graph/badge.svg)](https://codecov.io/gh/martincostello/credit-card-splitter)
+[![Build status](https://travis-ci.org/martincostello/credit-card-splitter.svg?branch=main)](https://travis-ci.org/martincostello/credit-card-splitter) [![Code coverage](https://codecov.io/gh/martincostello/credit-card-splitter/branch/main/graph/badge.svg)](https://codecov.io/gh/martincostello/credit-card-splitter)
 
-[![Build history](https://buildstats.info/travisci/chart/martincostello/credit-card-splitter?branch=master&includeBuildsFromPullRequest=false)](https://travis-ci.org/martincostello/credit-card-splitter)
+[![Build history](https://buildstats.info/travisci/chart/martincostello/credit-card-splitter?branch=main&includeBuildsFromPullRequest=false)](https://travis-ci.org/martincostello/credit-card-splitter)
 
 ## Overview
 
