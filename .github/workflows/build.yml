@@ -179,14 +179,17 @@ jobs:
         DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         FUNCTION_ARN: ${{ steps.publish-function.outputs.published-arn }}
       run: |
+        $functionArn = "${env:FUNCTION_ARN}"
         $id = "${env:DISTRIBUTION_ID}"
         $config = (aws cloudfront get-distribution-config --id $id --output json | Out-String | ConvertFrom-Json)
 
-        $updatedConfig = @{ "DistributionConfig" = $config.DistributionConfig }
-        $updatedConfig.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.Items[0].LambdaFunctionARN = "${env:FUNCTION_ARN}"
+        if ($updatedConfig.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.Items[0].LambdaFunctionARN -ne $functionArn) {
+          $updatedConfig = @{ "DistributionConfig" = $config.DistributionConfig }
+          $updatedConfig.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.Items[0].LambdaFunctionARN = $functionArn
 
-        $ifMatch = $config.ETag
-        $inputJson = $updatedConfig | ConvertTo-Json -Depth 50
+          $ifMatch = $config.ETag
+          $inputJson = $updatedConfig | ConvertTo-Json -Depth 50
 
-        aws cloudfront update-distribution --id $id --if-match $ifMatch --cli-input-json $inputJson | Out-Null
-        aws cloudfront wait distribution-deployed --id $id
+          aws cloudfront update-distribution --id $id --if-match $ifMatch --cli-input-json $inputJson | Out-Null
+          aws cloudfront wait distribution-deployed --id $id
+        }
