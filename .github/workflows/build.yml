@@ -188,5 +188,5 @@ jobs:
         $ifMatch = $config.ETag
         $inputJson = $updatedConfig | ConvertTo-Json -Depth 50
 
-        aws cloudfront update-distribution --id $id --if-match $ifMatch --cli-input-json $inputJson > /dev/null
+        aws cloudfront update-distribution --id $id --if-match $ifMatch --cli-input-json $inputJson | Out-Null
         aws cloudfront wait distribution-deployed --id $id
