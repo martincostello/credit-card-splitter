@@ -6,7 +6,7 @@ var lines = await File.ReadAllLinesAsync(path);
 var enGB = CultureInfo.GetCultureInfo("en-GB");
 var transactions = new List<Transaction>(lines.Length - 1);
 
-foreach (var line in lines.Skip(1))
+foreach (var line in lines[1..])
 {
     var parts = line.Split(',');
 
