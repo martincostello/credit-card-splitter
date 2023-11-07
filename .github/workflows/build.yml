@@ -121,10 +121,12 @@ jobs:
         aws-region: eu-west-2
 
     - name: Deploy to S3
+      if: false
       run: |
         aws s3 sync ./build/ s3://bills.martincostello.com --cache-control 'max-age=604800' --delete
 
     - name: Create CloudFront invalidation
+      if: false
       shell: pwsh
       env:
         DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
