@@ -183,7 +183,7 @@ jobs:
         $id = "${env:DISTRIBUTION_ID}"
         $config = (aws cloudfront get-distribution-config --id $id --output json | Out-String | ConvertFrom-Json)
 
-        if ($updatedConfig.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.Items[0].LambdaFunctionARN -ne $functionArn) {
+        if ($config.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.Items[0].LambdaFunctionARN -ne $functionArn) {
           $updatedConfig = @{ "DistributionConfig" = $config.DistributionConfig }
           $updatedConfig.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.Items[0].LambdaFunctionARN = $functionArn
 
