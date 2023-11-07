@@ -40,6 +40,19 @@ jobs:
         npm test -- --coverage
         codecov
 
+    - name: Create CloudFront Lambda ZIP file
+      run: |
+        code="./cloudfront.js"
+        chmod +x "${code}" || exit 1
+        zip -r "function.zip" "${code}" || exit 1
+
+    - name: Publish function
+      uses: actions/upload-artifact@v3
+      with:
+        name: function
+        path: function.zip
+        if-no-files-found: error
+
     - name: Publish website
       uses: actions/upload-artifact@v3
       with:
@@ -68,6 +81,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ build, lint ]
 
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      FUNCTION_ARCHITECTURES: x86_64
+      FUNCTION_DESCRIPTION: Deploy build ${{ github.run_number }} to AWS Lambda via GitHub Actions
+      FUNCTION_HANDLER: cloudfront.handler
+      FUNCTION_MEMORY: 128
+      FUNCTION_NAME: bills-martincostello-com-response-headers
+      FUNCTION_ROLE: ${{ vars.AWS_LAMBDA_ROLE }}
+      FUNCTION_RUNTIME: nodejs18.x
+      FUNCTION_TIMEOUT: 1
+
     environment:
       name: production
       url: https://bills.martincostello.com
@@ -83,6 +107,12 @@ jobs:
         name: website
         path: ./build
 
+    - name: Download function
+      uses: actions/download-artifact@v3
+      with:
+        name: function
+        path: ./function
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -91,12 +121,70 @@ jobs:
         aws-region: eu-west-2
 
     - name: Deploy to S3
-      run: aws s3 sync ./build/ s3://bills.martincostello.com --cache-control 'max-age=604800' --delete
+      run: |
+        aws s3 sync ./build/ s3://bills.martincostello.com --cache-control 'max-age=604800' --delete
 
     - name: Create CloudFront invalidation
       shell: pwsh
       env:
         DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
       run: |
-        $invalidationId = aws cloudfront create-invalidation --distribution-id "${env:DISTRIBUTION_ID}" --paths "/*" --output text --query "Invalidation.Id"
-        aws cloudfront wait invalidation-completed --distribution-id "${env:DISTRIBUTION_ID}" --id $invalidationId
+        $distributionId = "${env:DISTRIBUTION_ID}"
+        $invalidationId = aws cloudfront create-invalidation --distribution-id $distributionId --paths "/*" --output text --query "Invalidation.Id"
+        aws cloudfront wait invalidation-completed --distribution-id $distributionId --id $invalidationId
+
+    - name: Update function code
+      run: |
+        aws lambda update-function-code \
+          --function-name "${FUNCTION_NAME}" \
+          --architectures "${FUNCTION_ARCHITECTURES}" \
+          --zip-file "fileb://./function/function.zip" \
+          > /dev/null
+
+    - name: Wait for function code update
+      run: |
+        aws lambda wait function-updated-v2 \
+          --function-name "${FUNCTION_NAME}" \
+          > /dev/null
+
+    - name: Update function configuration
+      run: |
+        aws lambda update-function-configuration \
+          --function-name "${FUNCTION_NAME}" \
+          --description "${FUNCTION_DESCRIPTION}" \
+          --handler "${FUNCTION_HANDLER}" \
+          --memory-size "${FUNCTION_MEMORY}" \
+          --role "${FUNCTION_ROLE}" \
+          --runtime "${FUNCTION_RUNTIME}" \
+          --timeout "${FUNCTION_TIMEOUT}" \
+          > /dev/null
+
+    - name: Wait for function configuration update
+      run: |
+        aws lambda wait function-updated-v2 \
+          --function-name "${FUNCTION_NAME}" \
+          > /dev/null
+
+    - name: Publish new function version
+      id: publish-function
+      run: |
+        FUNCTION_ARN="$(aws lambda publish-version --function-name "${FUNCTION_NAME}" --output text --query "FunctionArn")"
+        echo "published-arn=${FUNCTION_ARN}" >> "${GITHUB_OUTPUT}"
+
+    - name: Update CloudFront Distribution
+      shell: pwsh
+      env:
+        DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        FUNCTION_ARN: ${{ steps.publish-function.outputs.published-arn }}
+      run: |
+        $id = "${env:DISTRIBUTION_ID}"
+        $config = (aws cloudfront get-distribution-config --id $id --output json | Out-String | ConvertFrom-Json)
+
+        $updatedConfig = @{ "DistributionConfig" = $config.DistributionConfig }
+        $updatedConfig.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.Items[0].LambdaFunctionARN = "${env:FUNCTION_ARN}"
+
+        $ifMatch = $config.ETag
+        $inputJson = $updatedConfig | ConvertTo-Json -Depth 50
+
+        aws cloudfront update-distribution --id $id --if-match $ifMatch --cli-input-json $inputJson > /dev/null
+        aws cloudfront wait distribution-deployed --id $id
