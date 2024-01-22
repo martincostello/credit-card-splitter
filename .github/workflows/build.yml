@@ -89,7 +89,7 @@ jobs:
       FUNCTION_MEMORY: 128
       FUNCTION_NAME: bills-martincostello-com-response-headers
       FUNCTION_ROLE: ${{ vars.AWS_LAMBDA_ROLE }}
-      FUNCTION_RUNTIME: nodejs18.x
+      FUNCTION_RUNTIME: nodejs20.x
       FUNCTION_TIMEOUT: 1
 
     environment:
