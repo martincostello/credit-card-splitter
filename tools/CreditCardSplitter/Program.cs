@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 var path = args[0];
 var lines = await File.ReadAllLinesAsync(path);
@@ -8,7 +8,7 @@ var transactions = new List<Transaction>(lines.Length - 1);
 
 foreach (var line in lines[1..])
 {
-    var parts = line.Split(',');
+    var parts = SplitCsv(line);
 
     var transaction = new Transaction(
         DateOnly.Parse(parts[0], enGB),
@@ -97,6 +97,46 @@ foreach ((var member, var amount) in amounts)
 Console.WriteLine();
 Console.Write("Press enter to exit.");
 Console.ReadLine();
+
+static IList<string> SplitCsv(string line)
+{
+    if (line.IndexOf('"') is -1)
+    {
+        return line.Split(',');
+    }
+
+    var parts = new List<string>(5);
+    var remaining = line.AsSpan();
+
+    while (remaining.Length > 0)
+    {
+        int thisIndex;
+        int restIndex;
+
+        if (remaining[0] is '"')
+        {
+            remaining = remaining[1..];
+            thisIndex = remaining.IndexOf('"');
+            restIndex = thisIndex + 2;
+        }
+        else
+        {
+            thisIndex = remaining.IndexOf(',');
+            restIndex = thisIndex + 1;
+
+            if (thisIndex is -1)
+            {
+                parts.Add(new(remaining));
+                break;
+            }
+        }
+
+        parts.Add(new(remaining[..thisIndex]));
+        remaining = remaining[restIndex..];
+    }
+
+    return parts;
+}
 
 record Transaction(
     DateOnly Date,

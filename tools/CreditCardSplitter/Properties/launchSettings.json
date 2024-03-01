@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CreditCardSplitter": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    }
+  }
+}
