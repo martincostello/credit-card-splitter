@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 
 var path = args[0];
 var lines = await File.ReadAllLinesAsync(path);
@@ -17,7 +17,7 @@ foreach (var line in lines[1..])
         parts[3],
         decimal.Parse(parts[4], enGB));
 
-    if (!transaction.Description.StartsWith("PAYMENT RECEIVED"))
+    if (!transaction.Description.StartsWith("PAYMENT RECEIVED", StringComparison.OrdinalIgnoreCase))
     {
         transactions.Add(transaction);
     }
@@ -26,7 +26,7 @@ foreach (var line in lines[1..])
 var paymentDue = transactions.Sum((p) => p.Amount);
 var amountsBeforeSplits = transactions.GroupBy((p) => p.CardMember).ToDictionary((p) => p.Key, (p) => p.Sum((q) => q.Amount));
 
-Console.WriteLine("Payment Due: \u001b[32m{0:C}\u001b[0m", transactions.Sum((p) => p.Amount), enGB);
+Console.WriteLine(string.Format(enGB, "Payment Due: \u001b[32m{0:C}\u001b[0m", transactions.Sum((p) => p.Amount)));
 Console.WriteLine();
 
 foreach ((var member, var amount) in amountsBeforeSplits)
@@ -85,8 +85,8 @@ var computedPaymentDue = amounts.Values.Sum();
 
 if (paymentDue != computedPaymentDue)
 {
-    Console.Error.WriteLine($"Something went wrong - the computed amounts don't equal the payment due. Expected: \u001b[32m{paymentDue:C}\u001b[0m; Actual: \u001b[31m{computedPaymentDue:C}\u001b[0m", enGB);
-    Console.Error.WriteLine();
+    Console.WriteLine($"Something went wrong - the computed amounts don't equal the payment due. Expected: \u001b[32m{paymentDue:C}\u001b[0m; Actual: \u001b[31m{computedPaymentDue:C}\u001b[0m", enGB);
+    Console.WriteLine();
 }
 
 foreach ((var member, var amount) in amounts)
@@ -100,7 +100,7 @@ Console.ReadLine();
 
 static IList<string> SplitCsv(string line)
 {
-    if (line.IndexOf('"') is -1)
+    if (line.IndexOf('"', StringComparison.Ordinal) is -1)
     {
         return line.Split(',');
     }
@@ -138,7 +138,7 @@ static IList<string> SplitCsv(string line)
     return parts;
 }
 
-record Transaction(
+sealed record Transaction(
     DateOnly Date,
     string Description,
     string CardMember,
