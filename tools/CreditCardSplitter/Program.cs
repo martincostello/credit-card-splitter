@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 var path = args[0];
 var lines = await File.ReadAllLinesAsync(path);
@@ -41,6 +41,24 @@ foreach (var member in amountsBeforeSplits.Keys)
     amounts[member] = default;
 }
 
+string[] autoSplits =
+[
+    "AMAZON PRIME",
+    "MONMOUTH COFFEE",
+    "PRIME VIDEO CHANNELS",
+    "SAINSBURYS ONLINE",
+    "WM MORRISONS STORES",
+];
+
+string[] nonSplits =
+[
+    "APPLE.COM/BILL",
+    "DNSIMPLE",
+    "SNB S201659",
+    "TAKEAWAY.COM",
+    "TFL TRAVEL CHARGE",
+];
+
 var splits = transactions.GroupBy((p) => p.CardMember);
 
 foreach (var member in splits)
@@ -51,14 +69,24 @@ foreach (var member in splits)
 
     foreach (var transaction in member.OrderBy((p) => p.Date))
     {
-        Console.Write($"{transaction.Date} - \u001b[33m{transaction.Description}\u001b[0m \u001b[36m{transaction.Amount:C}\u001b[0m. Split? ", enGB);
-
-        if (Console.ReadKey().KeyChar is 'y' or 'Y')
+        if (!nonSplits.Any(transaction.Description.Contains))
         {
-            transaction.Split = true;
-        }
+            bool split = autoSplits.Any(transaction.Description.Contains);
 
-        Console.WriteLine();
+            if (!split)
+            {
+                Console.Write($"{transaction.Date} - \u001b[33m{transaction.Description}\u001b[0m \u001b[36m{transaction.Amount:C}\u001b[0m. Split? ", enGB);
+
+                if (Console.ReadKey().KeyChar is 'y' or 'Y')
+                {
+                    split = true;
+                }
+
+                Console.WriteLine();
+            }
+
+            transaction.Split = split;
+        }
     }
 }
 
