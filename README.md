@@ -1,6 +1,6 @@
 # Credit Card Splitter
 
-[![Build status](https://github.com/martincostello/credit-card-splitter/workflows/build/badge.svg?branch=main&event=push)](https://github.com/martincostello/credit-card-splitter/actions?query=workflow%3Abuild+branch%3Amain+event%3Apush) [![Code coverage](https://codecov.io/gh/martincostello/credit-card-splitter/branch/main/graph/badge.svg)](https://codecov.io/gh/martincostello/credit-card-splitter)
+[![Build status](https://github.com/martincostello/credit-card-splitter/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/martincostello/credit-card-splitter/actions?query=workflow%3Abuild+branch%3Amain+event%3Apush) [![Code coverage](https://codecov.io/gh/martincostello/credit-card-splitter/branch/main/graph/badge.svg)](https://codecov.io/gh/martincostello/credit-card-splitter)
 
 ## Overview
 
